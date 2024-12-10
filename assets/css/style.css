@@ -37,7 +37,7 @@
 
    /* ======= Background colors ======= */
    --bottom-nav-bg:hsl(var(--hue),32% 25% / .62);
-   --card-bg:linear-gradient(120deg,hsl(var(--hue) 54% 74% / .15),hsl(var(--hue) 54% 74% / .05) );
+   --card-bg:linear-gradient(120deg, hsl(var(--hue) 54% 74% / .15), hsl(var(--hue) 54% 74% / .05));
    --modal-backdrop-bg:hsl(var(--hue) 54% 74% / .1);
    --footer-bg:linear-gradient(360deg,hsl(var(--hue) 54% 74% / .15),hsl(var(--hue) 54% 74% / .1) );
 
@@ -124,6 +124,43 @@ body {
    margin-left: auto;
    margin-right: auto;
 }
+.sue-section {
+   position: relative;
+   overflow:hidden;
+}
+.sue-wrapper {
+   width: 100%;
+   height: 100%;
+}
+.sue-sub-container {
+   padding-top: 7em;
+   padding-bottom: 5em;
+}
+.section-title {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   margin-bottom: 95px;
+}
+.section-title h3 {
+   color: var(--color-01);
+   font-size: var(--h3-font-size);
+   font-weight: var(--font-bold);
+   margin-bottom:10px;
+}
+.section-title p {
+   color: var(--color-04);
+   font-size: var(--base-font-size);
+   font-weight: var(--font-regular);
+}
+
+.section-content {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   column-gap:40px;
+}
 
 /* =========================================
    Components
@@ -136,6 +173,38 @@ body {
 /* ========== To top button with scroll indicator bar ========== */
 
 /* ========== Buttons ========== */
+.sue-main-btn {
+   width:fit-content;
+   padding: 14px 30px;
+   border-radius: 35px;
+   cursor: pointer;
+   transition: .3s;
+}
+.sue-main-btn:hover {
+   color: var(--white-color);
+   background-color: var(--hover-color);
+   border: 2px solid var(--hover-color);
+}
+.sue-main-btn a {
+   color: var(--color-01);
+   font-size:var(--small-font-size);
+    font-weight:500;
+    transition: .3s;
+}
+.sue-main-btn:hover a {
+   color:var(--white-color);
+}
+.border-btn {
+   border: 2px solid var(--color-01);
+}
+.fill-btn {
+   background-color: var(--primary-color);
+   border: 2px solid var(--primary-color);
+}
+.fill-btn a {
+   color: var(--dark-color);
+    
+}
 
 /* =========================================
    Header
@@ -163,20 +232,411 @@ body {
 .sue-logo a:hover {
    color: var(--hover-color);
 }
+.header-btns {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   column-gap:25px;
+}
+.lets-talk-icon {
+   color: var(--color-01);
+   font-size: 1.8rem;
+   cursor:pointer;
+   transition: .3s;
+   display: none;
+}
+
+.lets-talk-icon:hover {
+   color: var(--hover-color);
+}
+.theme-btn {
+   position:relative;
+   display: flex;
+   justify-content:end;
+   align-items:center;
+   width: 27px;
+   cursor: pointer;
+}
+.theme-btn i {
+   position: absolute;
+   color: var(--color-01);
+   font-size: 1.7rem;
+   cursor: pointer;
+   transition: .3s;
+}
+.theme-btn:hover i {
+   color: var(--hover-color);
+   transform: rotate(-15deg);
+}
+.theme-btn .moon-icon {
+   display: none;
+}
 
 /* ========== Dark/Light theme buttons ========== */
 
 /* =========================================
    Bottom navigation menu
 ========================================= */
+.button-nav-container {
+   position: relative;
+}
+.button-nav{
+   z-index: var(--z-fixed);
+   position: fixed;
+   left: 50%;
+   transform: translate(-50%);
+   bottom: 50px;
+}
+.button-nav-inner {
+    position: relative;
+}
+.button-nav .menu {
+   background-color:var(--bottom-nav-bg);
+   backdrop-filter: blue(10px);
+   padding: 16px 35px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   column-gap: 25px;
+   border-bottom:1px solid hsl(var(--hue) 45% 98% / .1);
+   border-left:1px solid hsl(var(--hue) 45% 98% / .1);
+   border-radius:50px;
+   /* display:none; */
+}
+.button-nav .menu li a {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+.button-nav .menu li a i {
+   color: var(--color-02);
+   font-size:1.4rem;
+   padding: 10px;
+   border-radius: 50%;
+   transition: .3s;
+}
+.button-nav .menu li:hover a i {
+   color: var(--white-color);
+   background-color: var(--hover-color);
+} 
+.button-nav .menu .current i {
+   color: var(--dark-color);
+   background-color: var(--primary-color);
+}
+.button-nav .menu li a span{
+   z-index:var(--z-tooltip);
+   position:absolute;
+   color: var(--dark-color);
+   background-color: var(--primary-color);
+   font-size: var(--tiny-font-size);
+   font-weight: var(--font-medium);
+   padding: 3px 10px;
+   transform: translateY(-53px);
+   border-radius: 5px;
+   pointer-events: none;
+   opacity: 0;
+}
+.button-nav .menu li:hover a span {
+   opacity: 1;
+}
+.button-nav .menu li a span:before {
+   content:"";
+   z-index:var(--z-minus);
+   position:absolute;
+   background-color: var(--primary-color);
+   width: 10px;
+   height: 10px;
+   left: 50%;
+   bottom:-8px;
+   transform: rotate(45deg) translateX(-50%);
+}
+
+.button-nav .menu-hide-btn{
+   z-index: var(--z-fixed);
+   position: absolute;
+   top:5px;
+   right:0;
+   color: var(--dark-color);
+   font-size: 1.52rem;
+   background-color: var(--primary-color);
+   padding: 2px;
+   border-radius: 50%;
+   cursor: pointer;
+   transition: .3s ease;
+   display: none;
+   pointer-events: none;
+}
+.button-nav .menu-hide-btn:hover{
+   color: var(--white-color);
+   background-color: var(--hover-color);
+}
+.menu-show-btn {
+   z-index: var(--z-fixed);
+   position: fixed;
+   background-color: var(--bottom-nav-bg);
+   backdrop-filter: blur(10px);
+   width: 85px;
+   height: 50px;
+   border-bottom:1px solid hsl(var(--hue) 45% 98% / .1);
+   border-left:1px solid hsl(var(--hue) 45% 98% / .1);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   row-gap: 5px;
+    translate: -50% 0;
+    left: 50%;
+    /* bottom:50px; */
+    bottom: -75px;
+    opacity: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    animation:wiggle 2s linear infinite;
+    animation-delay: 1s;
+}
+.menu-show-btn .bar-01, .menu-show-btn .bar-02{
+background-color: var(--primary-color);
+width: 40px;
+height: 4px;
+transition: .15s;
+}
+.menu-show-btn:hover .bar-01, .menu-show-btn:hover .bar-02{
+   background-color: var(--hover-color);
+
+}
+@keyframes wiggle {
+   0%,
+   5%{
+      transform: rotateZ(0);
+   }
+   15%{
+      transform: rotateZ(-15deg);
+   }
+   20%{
+      transform: rotateZ(10deg);
+   }
+   25%{
+      transform: rotateZ(-10deg);
+   }
+   30%{
+      transform: rotateZ(6deg);
+   }
+   35%{
+      transform: rotateZ(-4deg);
+   }
+   40%,
+   100% {
+      transform: rotate(0deg);
+   }
+}
+
 
 /* =========================================
    Home
 ========================================= */
+.home-container {
+   height: 100vh;
+   position: relative;
+}
+.home-container .sue-wrapper {
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+
+.avatar-container {
+   position: relative;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   column-gap: 25px;
+}
+
+.avatar-img {
+   position: relative;
+   width: 425px;
+   height: 425px;
+}
+
+.avatar-img img {
+   position: absolute;
+   width: 100%;
+}
+
+.home-social {
+   position: absolute;
+   left: 0px;
+   top:200px;
+
+}
+
+.home-social span {
+    position: absolute;
+   left: 10px; 
+   color: var(--color-01);
+   font-size: var(--tiny-font-size);
+   white-space: nowrap;
+   transform: rotateZ(-90deg);
+   transform-origin: left;
+} 
+.home-social .social-line{
+   background-color: var(--color-01);
+   width: 1px;
+   height: 100px;
+   margin-top: 37px;
+   margin-bottom: 25px;
+   margin-left: 10px;
+}
+
+.home-social .social-icons {
+   display: flex;
+   flex-direction: column;
+   gap:25px;
+}
+.home-social .social-icons li a {
+   color: var(--color-01);
+   font-size: var(--xlarge-font-size);
+   transform: .3s;
+}
+.home-social .social-icons li a:hover {
+   color: var(--hover-color);
+}
+.avatar-container .hire-btn-01 {
+ display: none;
+}
+.avatar-info .text-content{
+display: flex;
+flex-direction: column;
+row-gap: 10px;
+}
+.avatar-info .hello-text {
+   font-size: var(--base-font-size);
+   font-weight: var(--font-semi-bold);
+}
+.avatar-info .my-name {
+   color: var(--color-02);
+   font-size: var(--h1-font-size);
+   font-weight: var(--font-bold);
+}
+.avatar-info .what-i-do {
+   font-size: var(--base-font-size);
+   font-weight: var(--font-semi-bold);
+   margin-bottom: 35px;
+}
+.home-scroll-btn {
+   position: absolute;
+   right: -5px;
+   color: var(--color-01);
+   display: grid;
+   justify-items: center;
+   row-gap: 3px;
+   animation:up-down 1.5s linear infinite;
+   animation-delay:1.85s;
+}
+@keyframes up-down {
+   0% {
+      transform: translateY(8px);
+   }
+   50% {
+      transform: translateY(-8px);
+   }
+   100% {
+      transform: translateY(8px);
+   }
+}
+.home-scroll-btn:hover {
+   color:var(--hover-color);
+}
+.home-scroll-btn div{
+font-size: var(--tiny-font-size);
+font-weight: var(--font-regular);
+writing-mode: vertical-lr;
+text-orientation: mixed;
+white-space: nowrap;
+transform: rotate(180deg);
+margin-top: 7px;
+}
+.home-scroll-btn i {
+   font-size: 2rem;
+}
+
+*/
 
 /* =========================================
    About Me
 ========================================= */
+.about-image{
+   position: relative;
+   /* width:30%!important; */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   pointer-events: none; 
+   overflow: hidden;
+
+}
+.about-image img {
+   width:100%;
+   border-radius: 15px;
+   object-fit: contain;
+}
+.about-details {
+   width:60%;
+   display: flex;
+   justify-content:center;
+   flex-direction: column;
+}
+.about-info .iam {
+   color: var(--color-02);
+   font-size: var(--h4-font-size);
+   font-weight: var(--font-semi-bold);
+}
+.about-info .about-description {
+   font-size: var(--base-font-size);
+   font-weight: var(--font-regular);
+   line-height: 25px;
+}
+.pro-list {
+   position: relative;
+   max-width: 100%;
+   display: grid;
+   grid-template-columns:repeat(auto-fill, minmax(185px, 1fr));
+   column-gap: 10px;
+   row-gap: 12px;
+   margin: 38px 0px;
+
+}
+.pro-card {
+   background: var(--card-bg);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   column-gap: 10px;
+   padding: 35px 25px;
+   text-align: left;
+   border-radius: 5px;
+}
+.pro-card span {
+   color: var(--primary-color);
+   font-size: 2.75rem;
+   font-weight:var(--font-bold);
+}
+.pro-card p {
+   color: var(--color-02);
+   font-size: var(--tiny-font-size);
+   font-weight: var(--font-regular);
+   line-height: 20px;
+   max-width: 100px;
+}
+.about-buttons {
+   display: flex;
+   flex-wrap: wrap;
+   column-gap: 20px;
+   row-gap: 25px;
+}
 
 /* =========================================
    My Resume
