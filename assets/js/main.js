@@ -3,11 +3,12 @@
 ===================================================== */
 
 const resumeTabs = document.querySelector('.resume-tabs');
+window.onload = ()=>{
+   console.log(resumeTabs);
+}
+console.log(resumeTabs);
 const resumePortfolioTabBtnd = resumeTabs.querySelectorAll('.tab-btn');
 const resumeTabContents = document.querySelectorAll('.resume-tab-content');
-
-
-
 
 const resumeTabNav = function(resumeTabClick) {
 
@@ -33,19 +34,56 @@ resumePortfolioTabBtnd.forEach((resumePortfolioTabBtnd,i)=>{
 
 
 
-
-
-
-
 /* =====================================================
    Service modal open/close function
 ===================================================== */
+
+const serviceCardWithModals = document.querySelectorAll('.service-container .card-with-modal');
+serviceCardWithModal.forEach((serviceCardWithModal)=>{
+   const serviceCard = serviceCardWithModal.querySelector('.service-card');
+   const serviceBackDrop = serviceCardWithModal.querySelector('.service-modal-backdrop');
+   const modalCloseBtn = serviceCardWithModal.querySelector('.modal-close-btn');
+   const serviceModal = serviceCardWithModal.querySelector('.service-modal');
+   serviceCard.addEventListener('click',()=>{
+      serviceBackDrop.style.display="flex";
+      setTimeout(()=>{
+         serviceBackDrop.classList.add('active');
+      },100)
+      setTimeout(()=>{
+         serviceModal.classList.add('active');
+      },300)
+      
+      
+   })
+   modalCloseBtn.addEventListener('click',()=>{
+      serviceBackDrop.style.display="none";
+   })
+})
 
 /* =====================================================
    Portfolio modals, tabs and cards
 ===================================================== */
 
 // Filter portfolio cards according to portfolio tabs.
+
+document.addEventListener('DOMContentLoaded',()=>{
+   const portfolioTabs = document.querySelector('portfolio-tabs');
+   const portfolioTabBtns  = document.querySelectorAll('.tab-btn');
+   const cardWithModals = document.querySelector('.portfolio-container .card-with-modal');
+
+   portfolioTabBtns.forEach((tabBtn)=>{
+      tabBtn.addEventListener('click',()=>{
+         const filter = tabBtn.getAttribute('data-filter');
+         cardWithModals.forEach((cardWithModal)=>{
+            if(filter==="all" || cardWithModal.classList.contains(filter)){
+              cardWithModal.style.opacity = "1";
+            }
+         });
+      })
+   })
+
+
+})
 
 // Open/Close Portfolio modals.
 
