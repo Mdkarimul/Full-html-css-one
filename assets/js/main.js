@@ -155,16 +155,63 @@ var swiper = new Swiper(".mySwiper", {
 /* =====================================================
    Send/Receive emails from contact form - EmailJS
 ===================================================== */
+(function() {
+   // https://dashboard.emailjs.com/admin/account
+   emailjs.init({
+     publicKey: "xD32b4_S53dKSaC7Z",
+   });
+})();
+sueContactForm = document.getElementById('sue-contact-form');
+sueContactFormAlert = document.querySelector('.contact-form-alert');
 
+sueContactForm.addEventListener('submit', function(event) {
+   event.preventDefault();
+
+   // these IDs from the previous steps
+   emailjs.sendForm('service_xpr9x5g', 'template_ybi8vnm', '#sue-contact-form')
+       .then(() => {
+         //   console.log('SUCCESS!');
+         sueContactFormAlert.innerHTML="<span>Your message send successfully<i class='ri-checkbox-circle-fill'></i></span>"
+         sueContactForm.reset();
+         setTimeout(()=>{
+
+         })
+      }, (error) => {
+         sueContactFormAlert.innerHTML="<span>Message not send<i class='ri-error-warning-fill'></i></span>";
+         sueContactFormAlert.title = error;
+         //   console.log('FAILED...', error);
+       });
+});
 /* =====================================================
    Shrink the height of the header on scroll
 ===================================================== */
+window.addEventListener('scroll',()=>{
+const sueHeader = document.querySelector('.sue-header');
+sueHeader.classList.toggle('shrink',window.scrollY > 0);
+})
 
 /* =====================================================
    Bottom navigation menu
 ===================================================== */
 
 // Each bottom navigation menu items active on page scroll.
+
+window.addEventListener('scroll',()=>{
+   const navMenuSections = document.querySelectorAll('.nav-menu-section');
+   const scrollY = window.pageYOffset; 
+   navMenuSections.forEach((navMenuSection)=>{
+
+     let sectionHeight = navMenuSection.offsetHeight;
+     let sectionTop = navMenuSection.offsetTop - 50;
+     let id = navMenuSection.getAttribute('id');
+     if(scrollY > sectionTop && scrollY <= sectionTop+sectionHeight){
+      document.querySelector(".bottom-nav .menu li a[href*="+id+"]").classList.add('current');
+     }else {
+      document.querySelector(".bottom-nav .menu li a[href*="+id+"]").classList.remove('current');
+     }
+
+   })
+})
 
 // Javascript to show bottom navigation menu on home(page load).
 
