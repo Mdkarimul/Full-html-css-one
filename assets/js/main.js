@@ -3,32 +3,34 @@
 ===================================================== */
 
 const resumeTabs = document.querySelector('.resume-tabs');
-window.onload = ()=>{
-   console.log(resumeTabs);
-}
-console.log(resumeTabs);
 const resumePortfolioTabBtnd = resumeTabs.querySelectorAll('.tab-btn');
 const resumeTabContents = document.querySelectorAll('.resume-tab-content');
 
 const resumeTabNav = function(resumeTabClick) {
-
     resumeTabContents.forEach((resumeTabContent)=>{
-      resumeTabContent[resumeTabClick].style.display="none";
-      resumeTabContent[resumeTabClick].classList.remove('active');
+       
+      resumeTabContent.style.display="none";
+      resumeTabContent.classList.remove('active');
     })
 
 
     resumePortfolioTabBtnd.forEach((resumePortfolioTabBtn)=>{
-      resumePortfolioTabBtn[resumeTabClick].classList.remove('active');
+      resumePortfolioTabBtn.classList.remove('active');
     })
 
    resumeTabContents[resumeTabClick].style.display="flex";
-   resumeTabContents[resumeTabClick].classList.add('active');
-   resumePortfolioTabBtnd[resumeTabClick].classList.add('active');
+   setTimeout(()=>{
+      resumeTabContents[resumeTabClick].classList.add('active');
+   },100)
+   setTimeout(()=>{
+      resumePortfolioTabBtnd[resumeTabClick].classList.add('active');
+   },300)
 }
+
+
 resumePortfolioTabBtnd.forEach((resumePortfolioTabBtnd,i)=>{
    resumePortfolioTabBtnd.addEventListener('click',()=>{
-      resumeTabNav(i);
+   resumeTabNav(i);
    })
 })
 
@@ -39,7 +41,8 @@ resumePortfolioTabBtnd.forEach((resumePortfolioTabBtnd,i)=>{
 ===================================================== */
 
 const serviceCardWithModals = document.querySelectorAll('.service-container .card-with-modal');
-serviceCardWithModal.forEach((serviceCardWithModal)=>{
+
+serviceCardWithModals.forEach((serviceCardWithModal,i)=>{
    const serviceCard = serviceCardWithModal.querySelector('.service-card');
    const serviceBackDrop = serviceCardWithModal.querySelector('.service-modal-backdrop');
    const modalCloseBtn = serviceCardWithModal.querySelector('.modal-close-btn');
@@ -52,8 +55,6 @@ serviceCardWithModal.forEach((serviceCardWithModal)=>{
       setTimeout(()=>{
          serviceModal.classList.add('active');
       },300)
-      
-      
    })
    modalCloseBtn.addEventListener('click',()=>{
       serviceBackDrop.style.display="none";
@@ -69,23 +70,72 @@ serviceCardWithModal.forEach((serviceCardWithModal)=>{
 document.addEventListener('DOMContentLoaded',()=>{
    const portfolioTabs = document.querySelector('portfolio-tabs');
    const portfolioTabBtns  = document.querySelectorAll('.tab-btn');
-   const cardWithModals = document.querySelector('.portfolio-container .card-with-modal');
+   const cardWithModals = document.querySelectorAll('.portfolio-container .card-with-modal');
 
    portfolioTabBtns.forEach((tabBtn)=>{
       tabBtn.addEventListener('click',()=>{
          const filter = tabBtn.getAttribute('data-filter');
          cardWithModals.forEach((cardWithModal)=>{
             if(filter==="all" || cardWithModal.classList.contains(filter)){
-              cardWithModal.style.opacity = "1";
+            
+              cardWithModal.classList.remove('hidden');
+              setTimeout(()=>{ 
+               cardWithModal.style.opacity = "1";
+               cardWithModal.style.transition=".5s ease";
+              },1)
+
+            }else {
+               cardWithModal.classList.add('hidden');
+               setTimeout(()=>{ 
+                  cardWithModal.style.opacity = "0";
+                  cardWithModal.style.transition=".5s ease";
+                 },1)
             }
          });
+         portfolioTabBtns.forEach((tabBtn)=>{
+            tabBtn.classList.remove('active')
+         })
+         tabBtn.classList.add('active');
       })
    })
-
-
 })
 
 // Open/Close Portfolio modals.
+const portfolioCardWithModals  = document.querySelectorAll('.portfolio-container .card-with-modal');
+console.log(portfolioCardWithModals);
+portfolioCardWithModals.forEach((portfolioCardWithModal)=>{
+const portfolioCard =  portfolioCardWithModal.querySelector('.portfolio-card');
+const portfolioBackDrop = portfolioCardWithModal.querySelector('.portfolio-modal-backdrop');
+const modalCloseBtn = portfolioCardWithModal.querySelector('.modal-close-btn');
+const portfolioModal = portfolioCardWithModal.querySelector('.portfolio-modal');
+
+
+
+portfolioCard.addEventListener("click",()=>{
+   portfolioBackDrop.style.display = "flex";
+   setTimeout(()=>{
+      portfolioBackDrop.classList.add('active');
+   },100)
+   setTimeout(()=>{
+      portfolioModal.classList.add('active');
+   },300)
+})
+
+
+modalCloseBtn.addEventListener('click',()=>{
+   setTimeout(()=>{
+      portfolioBackDrop.style.display = "none";
+   },500)
+
+   setTimeout(()=>{
+      portfolioBackDrop.classList.remove('active');
+      portfolioModal.classList.remove('active');
+   },100)
+
+})
+
+
+})
 
 /* =====================================================
    Testimonial Swiper
